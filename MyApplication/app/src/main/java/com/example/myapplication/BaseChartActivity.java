@@ -79,7 +79,8 @@ public abstract class BaseChartActivity extends AppCompatActivity {
                 JSONArray jsonArray = new JSONArray(response.toString());
 
                 int index = 0; // Índice para o gráfico
-                for (int i = 0; i < jsonArray.length(); i++) {
+                int length = 100;
+                for (int i = length - 1; i >= 0; i--) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     float value = parseData(jsonObject);
                     entries.add(new Entry(index++, value));

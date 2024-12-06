@@ -6,7 +6,7 @@ public class AltitudeChartActivity extends BaseChartActivity {
 
     @Override
     protected String getChartDescription() {
-        return "Últimas 10 leituras de altitude";
+        return "Últimas 100 leituras de altitude";
     }
 
     @Override

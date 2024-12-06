@@ -6,7 +6,7 @@ public class TemperatureChartActivity extends BaseChartActivity {
 
     @Override
     protected String getChartDescription() {
-        return "Últimas 10 leituras de temperatura";
+        return "Últimas 100 leituras de temperatura";
     }
 
     @Override

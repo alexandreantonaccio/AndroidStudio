@@ -5,7 +5,7 @@ import org.json.JSONObject;
 public class HumidityChartActivity extends BaseChartActivity {
     @Override
     protected String getChartDescription() {
-        return "Últimas 10 leituras de umidade";
+        return "Últimas 100 leituras de umidade";
     }
 
     @Override

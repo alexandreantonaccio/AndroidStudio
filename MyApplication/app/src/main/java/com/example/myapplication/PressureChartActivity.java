@@ -6,7 +6,7 @@ public class PressureChartActivity extends BaseChartActivity {
 
     @Override
     protected String getChartDescription() {
-        return "Últimas 10 leituras de pressão";
+        return "Últimas 100 leituras de pressão";
     }
 
     @Override

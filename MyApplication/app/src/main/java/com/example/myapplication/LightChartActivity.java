@@ -6,7 +6,7 @@ public class LightChartActivity extends BaseChartActivity {
 
     @Override
     protected String getChartDescription() {
-        return "Últimas 10 leituras de luminosidade";
+        return "Últimas 100 leituras de luminosidade";
     }
 
     @Override
