@@ -35,7 +35,7 @@ public class SmokeChartActivity extends AppCompatActivity {
 
     private class FetchDataTask extends AsyncTask<Void, Void, ArrayList<Entry>> {
 
-        private static final String DB_URL = "jdbc:postgresql://DESKTOP-TEQUIJB:5432/postgres";
+        private static final String DB_URL = "jdbc:postgresql://kris-pc:5432/postgres";
         private static final String USER = "postgres";
         private static final String PASSWORD = "password";
 
