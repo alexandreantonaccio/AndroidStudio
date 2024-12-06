@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,6 +41,31 @@ public class MainActivity extends AppCompatActivity {
 
         // Iniciar atualizações automáticas
         startUpdating();
+
+        speedTemperature.setOnClickListener(v -> {
+            Intent intent1 = new Intent(MainActivity.this, TemperatureChartActivity.class);
+            startActivity(intent1);
+        });
+        speedHumidity.setOnClickListener(v -> {
+            Intent intent2 = new Intent(MainActivity.this, HumidityChartActivity.class);
+            startActivity(intent2);
+        });
+        speedPressure.setOnClickListener(v -> {
+            Intent intent3 = new Intent(MainActivity.this, PressureChartActivity.class);
+            startActivity(intent3);
+        });
+        speedAltitude.setOnClickListener(v -> {
+            Intent intent4 = new Intent(MainActivity.this, AltitudeChartActivity.class);
+            startActivity(intent4);
+        });
+        speedLight.setOnClickListener(v -> {
+            Intent intent5 = new Intent(MainActivity.this, LightChartActivity.class);
+            startActivity(intent5);
+        });
+        speedSmoke.setOnClickListener(v -> {
+            Intent intent6 = new Intent(MainActivity.this, SmokeChartActivity.class);
+            startActivity(intent6);
+        });
     }
 
     private void startUpdating() {

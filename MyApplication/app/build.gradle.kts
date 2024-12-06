@@ -42,4 +42,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation (libs.postgresql)
     implementation (libs.speedviewlib)
+    implementation (libs.mpandroidchart)
 }

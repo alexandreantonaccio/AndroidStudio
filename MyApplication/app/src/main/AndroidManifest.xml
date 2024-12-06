@@ -23,6 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".TemperatureChartActivity" />
+        <activity android:name=".HumidityChartActivity" />
+        <activity android:name=".AltitudeChartActivity" />
+        <activity android:name=".PressureChartActivity" />
+        <activity android:name=".LightChartActivity" />
+        <activity android:name=".SmokeChartActivity" />
     </application>
 
 </manifest>
