@@ -10,11 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.anastr.speedviewlib.SpeedView;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private SpeedView speedTemperature, speedHumidity, speedPressure, speedAltitude, speedLight, speedSmoke;
 
     private final Handler handler = new Handler();
-    private final int UPDATE_INTERVAL = 5000; // Atualizar a cada 5 segundos
+    private final int UPDATE_INTERVAL = 5000; // Update every 5 seconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         statusTextView = findViewById(R.id.statusTextView);
 
-        // Inicializar os velocímetros
+        // Initialize speedometers
         speedTemperature = findViewById(R.id.speedTemperature);
         speedHumidity = findViewById(R.id.speedHumidity);
         speedPressure = findViewById(R.id.speedPressure);
@@ -39,9 +41,10 @@ public class MainActivity extends AppCompatActivity {
         speedLight = findViewById(R.id.speedLight);
         speedSmoke = findViewById(R.id.speedSmoke);
 
-        // Iniciar atualizações automáticas
+        // Start automatic updates
         startUpdating();
 
+        // Set click listeners for speedometers to open respective chart activities
         speedTemperature.setOnClickListener(v -> {
             Intent intent1 = new Intent(MainActivity.this, TemperatureChartActivity.class);
             startActivity(intent1);
@@ -80,50 +83,54 @@ public class MainActivity extends AppCompatActivity {
 
     private class FetchLatestReadingsTask extends AsyncTask<Void, Void, String> {
 
-        private static final String DB_URL = "jdbc:postgresql://192.168.0.8:5432/postgres";
-        private static final String USER = "postgres";
-        private static final String PASSWORD = "password";
+        private static final String API_URL = "http://kris-pc.local:8000/weather?limit=1";
 
         private float temperature, humidity, pressure, altitude, light, smoke;
 
         @Override
         protected String doInBackground(Void... voids) {
             try {
-                Class.forName("org.postgresql.Driver");
-                Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-                if (connection != null) {
-                    // Consulta para obter a última leitura
-                    String query = "SELECT temperature, humidity, pressure, altitude, light, smoke " +
-                            "FROM readings ORDER BY id DESC LIMIT 1";
-                    Statement statement = connection.createStatement();
-                    ResultSet resultSet = statement.executeQuery(query);
+                URL url = new URL(API_URL);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Accept", "application/json");
 
-                    if (resultSet.next()) {
-                        temperature = resultSet.getFloat("temperature");
-                        humidity = resultSet.getFloat("humidity");
-                        pressure = resultSet.getFloat("pressure");
-                        altitude = resultSet.getFloat("altitude");
-                        light = resultSet.getFloat("light");
-                        smoke = resultSet.getFloat("smoke");
-                    }
-
-                    connection.close();
-                    return "Conexão bem-sucedida!";
-                } else {
-                    return "Falha na conexão.";
+                if (connection.getResponseCode() != 200) {
+                    return "HTTP error code: " + connection.getResponseCode();
                 }
-            } catch (ClassNotFoundException e) {
-                return "Driver não encontrado: " + e.getMessage();
-            } catch (SQLException e) {
-                return "Erro de conexão: " + e.getMessage();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader((connection.getInputStream())));
+                StringBuilder response = new StringBuilder();
+                String output;
+                while ((output = br.readLine()) != null) {
+                    response.append(output);
+                }
+
+                connection.disconnect();
+
+                // Parse JSON response
+                JSONArray jsonResponse = new JSONArray(response.toString());
+                JSONObject firstObject = jsonResponse.getJSONObject(0);
+
+                temperature = (float) firstObject.getDouble("temperature");
+                humidity = (float) firstObject.getDouble("humidity");
+                pressure = (float) firstObject.getDouble("pressure");
+                altitude = (float) firstObject.getDouble("altitude");
+                light = (float) firstObject.getDouble("light");
+                smoke = (float) firstObject.getDouble("smoke");
+
+                return "Successful connection!";
+
+            } catch (Exception e) {
+                return "Connection error: " + e.getMessage();
             }
         }
 
         @Override
         protected void onPostExecute(String result) {
             statusTextView.setText("Status: " + result);
-            if (result.equals("Conexão bem-sucedida!")) {
-                // Atualizar os valores dos velocímetros
+            if (result.equals("Successful connection!")) {
+                // Update speedometer values
                 speedTemperature.speedTo(temperature);
                 speedHumidity.speedTo(humidity);
                 speedPressure.speedTo(pressure);
