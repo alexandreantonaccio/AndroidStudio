@@ -12,7 +12,6 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-
         <Button
             android:id="@+id/connectButton"
             android:layout_width="wrap_content"
@@ -26,60 +25,100 @@
             android:textAlignment="center"
             android:text="Status: Não conectado"
             android:layout_marginTop="16dp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
-        <!-- Velocímetros para cada coluna -->
+        <!-- Título e Velocímetro de Temperatura -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Temperatura"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold" />
         <com.github.anastr.speedviewlib.SpeedView
             android:id="@+id/speedTemperature"
             android:layout_width="195dp"
             android:layout_height="189dp"
-            android:layout_marginTop="16dp"
             app:sv_unit="°C"
             app:sv_withTremble="false"
             app:sv_maxSpeed="50" />
 
+        <!-- Título e Velocímetro de Umidade -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Umidade"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold" />
         <com.github.anastr.speedviewlib.SpeedView
             android:id="@+id/speedHumidity"
             android:layout_width="206dp"
             android:layout_height="196dp"
-            android:layout_marginTop="16dp"
             app:sv_unit="%"
             app:sv_withTremble="false"
             app:sv_maxSpeed="100" />
 
+        <!-- Título e Velocímetro de Pressão -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pressão"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold" />
         <com.github.anastr.speedviewlib.SpeedView
             android:id="@+id/speedPressure"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginTop="16dp"
             app:sv_unit="hPa"
             app:sv_withTremble="false"
             app:sv_maxSpeed="1100" />
 
+        <!-- Título e Velocímetro de Altitude -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Altitude"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold" />
         <com.github.anastr.speedviewlib.SpeedView
             android:id="@+id/speedAltitude"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginTop="16dp"
             app:sv_unit="m"
             app:sv_withTremble="false"
             app:sv_maxSpeed="5000" />
 
+        <!-- Título e Velocímetro de Luz -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Luz"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold" />
         <com.github.anastr.speedviewlib.SpeedView
             android:id="@+id/speedLight"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginTop="16dp"
             app:sv_unit="1x"
             app:sv_withTremble="false"
             app:sv_maxSpeed="100000" />
 
+        <!-- Título e Velocímetro de Fumaça -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fumaça"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold" />
         <com.github.anastr.speedviewlib.SpeedView
             android:id="@+id/speedSmoke"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginTop="16dp"
             app:sv_unit="ppm"
             app:sv_withTremble="false"
             app:sv_maxSpeed="1000" />
