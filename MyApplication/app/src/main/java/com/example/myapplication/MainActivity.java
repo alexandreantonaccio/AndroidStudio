@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
-
+import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.anastr.speedviewlib.SpeedView;
@@ -21,7 +21,7 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
     private TextView statusTextView;
-    private SpeedView speedTemperature, speedHumidity, speedPressure, speedAltitude, speedLight, speedSmoke;
+    private LinearLayout temperatureBox, humidityBox, pressureBox, altitudeBox, lightBox, smokeBox;
 
     private final Handler handler = new Handler();
     private final int UPDATE_INTERVAL = 5000; // Update every 5 seconds
@@ -34,38 +34,38 @@ public class MainActivity extends AppCompatActivity {
         statusTextView = findViewById(R.id.statusTextView);
 
         // Initialize speedometers
-        speedTemperature = findViewById(R.id.speedTemperature);
-        speedHumidity = findViewById(R.id.speedHumidity);
-        speedPressure = findViewById(R.id.speedPressure);
-        speedAltitude = findViewById(R.id.speedAltitude);
-        speedLight = findViewById(R.id.speedLight);
-        speedSmoke = findViewById(R.id.speedSmoke);
+        temperatureBox = findViewById(R.id.temperatureBox);
+        humidityBox = findViewById(R.id.humidityBox);
+        pressureBox = findViewById(R.id.pressureBox);
+        altitudeBox = findViewById(R.id.altitudeBox);
+        lightBox = findViewById(R.id.lightBox);
+        smokeBox = findViewById(R.id.smokeBox);
 
         // Start automatic updates
         startUpdating();
 
         // Set click listeners for speedometers to open respective chart activities
-        speedTemperature.setOnClickListener(v -> {
+        temperatureBox.setOnClickListener(v -> {
             Intent intent1 = new Intent(MainActivity.this, TemperatureChartActivity.class);
             startActivity(intent1);
         });
-        speedHumidity.setOnClickListener(v -> {
+        humidityBox.setOnClickListener(v -> {
             Intent intent2 = new Intent(MainActivity.this, HumidityChartActivity.class);
             startActivity(intent2);
         });
-        speedPressure.setOnClickListener(v -> {
+        pressureBox.setOnClickListener(v -> {
             Intent intent3 = new Intent(MainActivity.this, PressureChartActivity.class);
             startActivity(intent3);
         });
-        speedAltitude.setOnClickListener(v -> {
+        altitudeBox.setOnClickListener(v -> {
             Intent intent4 = new Intent(MainActivity.this, AltitudeChartActivity.class);
             startActivity(intent4);
         });
-        speedLight.setOnClickListener(v -> {
+        lightBox.setOnClickListener(v -> {
             Intent intent5 = new Intent(MainActivity.this, LightChartActivity.class);
             startActivity(intent5);
         });
-        speedSmoke.setOnClickListener(v -> {
+        smokeBox.setOnClickListener(v -> {
             Intent intent6 = new Intent(MainActivity.this, SmokeChartActivity.class);
             startActivity(intent6);
         });
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class FetchLatestReadingsTask extends AsyncTask<Void, Void, String> {
 
-        private static final String API_URL = "http://kris-pc.local:8000/weather?limit=1";
+        private static final String API_URL = "http://localhost:8000/weather?limit=1";
 
         private float temperature, humidity, pressure, altitude, light, smoke;
 
@@ -131,12 +131,12 @@ public class MainActivity extends AppCompatActivity {
             statusTextView.setText("Status: " + result);
             if (result.equals("Successful connection!")) {
                 // Update speedometer values
-                speedTemperature.speedTo(temperature);
-                speedHumidity.speedTo(humidity);
-                speedPressure.speedTo(pressure);
-                speedAltitude.speedTo(altitude);
-                speedLight.speedTo(light);
-                speedSmoke.speedTo(smoke);
+                ((TextView) temperatureBox.findViewById(R.id.temperatureValue)).setText(String.format("Temperature: %.2f°C", temperature));
+                ((TextView) humidityBox.findViewById(R.id.humidityValue)).setText(String.format("Humidity: %.2f%%", humidity));
+                ((TextView) pressureBox.findViewById(R.id.pressureValue)).setText(String.format("Pressure: %.2fhPa", pressure));
+                ((TextView) altitudeBox.findViewById(R.id.altitudeValue)).setText(String.format("Altitude: %.2fm", altitude));
+                ((TextView) lightBox.findViewById(R.id.lightValue)).setText(String.format("Light: %.2flux", light));
+                ((TextView) smokeBox.findViewById(R.id.smokeValue)).setText(String.format("Smoke: %.2fppm", smoke));
             }
         }
     }
