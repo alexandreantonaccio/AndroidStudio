@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
@@ -20,14 +18,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class SmokeChartActivity extends AppCompatActivity {
 
     private LineChart lineChart;
-    private RecyclerView recyclerView;
-    private TemperatureAdapter adapter;
     private final Handler handler = new Handler();
     private final int UPDATE_INTERVAL = 5000; // Atualizar a cada 5 segundos
 
@@ -37,14 +31,8 @@ public class SmokeChartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_smoke_chart);
 
         lineChart = findViewById(R.id.lineChart);
-        recyclerView = findViewById(R.id.recyclerView);
 
-        // Configurar RecyclerView
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new TemperatureAdapter(new ArrayList<>());
-        recyclerView.setAdapter(adapter);
-
-        // Iniciar a atualização periódica do gráfico e da lista
+        // Iniciar a atualização periódica do gráfico
         startUpdating();
     }
 
@@ -64,12 +52,11 @@ public class SmokeChartActivity extends AppCompatActivity {
         }, UPDATE_INTERVAL);
     }
 
-    private class FetchDataTask extends AsyncTask<Void, Void, FetchDataResult> {
+    private class FetchDataTask extends AsyncTask<Void, Void, ArrayList<Entry>> {
 
         @Override
-        protected FetchDataResult doInBackground(Void... voids) {
-            ArrayList<Entry> entries = new ArrayList<>();
-            List<String> temperatures = new ArrayList<>();
+        protected ArrayList<Entry> doInBackground(Void... voids) {
+            ArrayList<Entry> tempEntries = new ArrayList<>();
 
             try {
                 Class.forName("org.postgresql.Driver");
@@ -80,17 +67,9 @@ public class SmokeChartActivity extends AppCompatActivity {
                     Statement statement = connection.createStatement();
                     ResultSet resultSet = statement.executeQuery(query);
 
-                    List<Float> temperatureList = new ArrayList<>();
                     while (resultSet.next()) {
-                        temperatureList.add(resultSet.getFloat("smoke"));
-                    }
-
-                    // Adicionar os dados na ordem correta
-                    int index = 0; // Índice para o gráfico
-                    for (int i = temperatureList.size() - 1; i >= 0; i--) {
-                        float smoke = temperatureList.get(i);
-                        entries.add(new Entry(index++, smoke));
-                        temperatures.add("Leitura " + index + ": " + smoke);
+                        float smoke = resultSet.getFloat("smoke");
+                        tempEntries.add(new Entry(resultSet.getInt("id"), smoke));
                     }
 
                     connection.close();
@@ -99,13 +78,19 @@ public class SmokeChartActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            return new FetchDataResult(entries, temperatures);
+            // Inverter a ordem das entradas
+            ArrayList<Entry> entries = new ArrayList<>();
+            for (int i = tempEntries.size() - 1; i >= 0; i--) {
+                entries.add(tempEntries.get(i));
+            }
+
+            return entries;
         }
 
         @Override
-        protected void onPostExecute(FetchDataResult result) {
-            if (!result.entries.isEmpty()) {
-                LineDataSet dataSet = new LineDataSet(result.entries, "Fumaça");
+        protected void onPostExecute(ArrayList<Entry> entries) {
+            if (!entries.isEmpty()) {
+                LineDataSet dataSet = new LineDataSet(entries, "Fumaça");
                 dataSet.setColor(getResources().getColor(android.R.color.holo_blue_dark));
                 dataSet.setValueTextColor(getResources().getColor(android.R.color.holo_blue_dark));
 
@@ -118,20 +103,6 @@ public class SmokeChartActivity extends AppCompatActivity {
                 lineChart.setDescription(description);
                 lineChart.invalidate(); // Atualizar o gráfico
             }
-
-            // Atualizar a RecyclerView
-            adapter.updateData(result.temperatures);
-        }
-    }
-
-
-    private class FetchDataResult {
-        ArrayList<Entry> entries;
-        List<String> temperatures;
-
-        FetchDataResult(ArrayList<Entry> entries, List<String> temperatures) {
-            this.entries = entries;
-            this.temperatures = temperatures;
         }
     }
 }

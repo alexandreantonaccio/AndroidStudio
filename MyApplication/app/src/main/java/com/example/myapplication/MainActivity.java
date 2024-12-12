@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class FetchLatestReadingsTask extends AsyncTask<Void, Void, String> {
 
-        private static final String API_URL = "http://localhost:8000/weather?limit=1";
+        private static final String API_URL = "http://kris-pc:8000/weather?limit=1";
 
         private float temperature, humidity, pressure, altitude, light, smoke;
 
