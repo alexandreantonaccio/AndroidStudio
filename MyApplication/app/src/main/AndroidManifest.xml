@@ -30,6 +30,7 @@
         <activity android:name=".PressureChartActivity" />
         <activity android:name=".LightChartActivity" />
         <activity android:name=".SmokeChartActivity" />
+        <activity android:name=".HighSoundChartActivity" />
     </application>
 
 </manifest>

@@ -32,269 +32,234 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="horizontal"
+            android:background="@drawable/box_background"
+            android:padding="16dp"
+            android:layout_marginBottom="8dp"
+            android:elevation="4dp">
 
-            <!-- Título centralizado -->
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_temperature"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp" />
+
             <TextView
-                android:id="@+id/temperatureTitle"
-                android:layout_width="match_parent"
+                android:id="@+id/temperatureValue"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Temperatura"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="Temperatura: --"
+                android:textSize="20sp" />
 
-            <LinearLayout
-                android:id="@+id/temperatureBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/box_background"
-                android:padding="16dp"
-                android:layout_marginBottom="8dp"
-                android:elevation="4dp">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_temperature"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="16dp" />
-
-                <TextView
-                    android:id="@+id/temperatureValue"
-                    android:layout_width="247dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="--.-°C"
-                    android:textSize="20sp" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/temperatureGraphButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/graph_icon"
+                android:layout_gravity="center_vertical" />
         </LinearLayout>
 
-        <!-- Caixa de Umidade -->
+        <!-- Repeat similar structure for other sensors (humidity, pressure, altitude, light, smoke) -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/box_background"
+            android:elevation="4dp"
+            android:orientation="horizontal"
             android:padding="16dp">
 
-            <!-- Título centralizado -->
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_humidity" />
+
             <TextView
-                android:id="@+id/humidityTitle"
-                android:layout_width="match_parent"
+                android:id="@+id/humidityValue"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Umidade"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="Umidade: --"
+                android:textSize="20sp" />
 
-            <LinearLayout
-                android:id="@+id/humidityBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/box_background"
-                android:padding="16dp"
-                android:layout_marginBottom="8dp"
-                android:elevation="4dp">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_humidity"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="16dp" />
-
-                <TextView
-                    android:id="@+id/humidityValue"
-                    android:layout_width="256dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="--.-%"
-                    android:textSize="20sp" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/humidityGraphButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/graph_icon" />
         </LinearLayout>
-        <!-- Caixa de Pressão -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/box_background"
+            android:elevation="4dp"
+            android:orientation="horizontal"
             android:padding="16dp">
 
-            <!-- Título centralizado -->
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_pressure" />
+
             <TextView
-                android:id="@+id/pressureTitle"
-                android:layout_width="match_parent"
+                android:id="@+id/pressureValue"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Pressão"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="Pressão: --"
+                android:textSize="20sp" />
 
-            <LinearLayout
-                android:id="@+id/pressureBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/box_background"
-                android:padding="16dp"
-                android:layout_marginBottom="8dp"
-                android:elevation="4dp">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_pressure"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="16dp" />
-
-                <TextView
-                    android:id="@+id/pressureValue"
-                    android:layout_width="257dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="--.- hPa"
-                    android:textSize="20sp" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/pressureGraphButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/graph_icon" />
         </LinearLayout>
 
-        <!-- Caixa de Altitude -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/box_background"
+            android:elevation="4dp"
+            android:orientation="horizontal"
             android:padding="16dp">
 
-            <!-- Título centralizado -->
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_light" />
+
             <TextView
-                android:id="@+id/altitudeTitle"
-                android:layout_width="match_parent"
+                android:id="@+id/lightValue"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Altitude"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="Luminosidade: --"
+                android:textSize="20sp" />
 
-            <LinearLayout
-                android:id="@+id/altitudeBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/box_background"
-                android:padding="16dp"
-                android:layout_marginBottom="8dp"
-                android:elevation="4dp">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_altitude"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="16dp" />
-
-                <TextView
-                    android:id="@+id/altitudeValue"
-                    android:layout_width="257dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="--.- m"
-                    android:textSize="20sp" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/lightGraphButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/graph_icon" />
         </LinearLayout>
 
-        <!-- Caixa de Luz -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="horizontal"
+            android:background="@drawable/box_background"
+            android:padding="16dp"
+            android:layout_marginBottom="8dp"
+            android:elevation="4dp">
 
-            <!-- Título centralizado -->
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_altitude"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp" />
+
             <TextView
-                android:id="@+id/lightTitle"
-                android:layout_width="match_parent"
+                android:id="@+id/altitudeValue"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Luminosidade"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="Altitude: --"
+                android:textSize="20sp" />
 
-            <LinearLayout
-                android:id="@+id/lightBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/box_background"
-                android:padding="16dp"
-                android:layout_marginBottom="8dp"
-                android:elevation="4dp">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_light"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="16dp" />
-
-                <TextView
-                    android:id="@+id/lightValue"
-                    android:layout_width="252dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="--.- lx"
-                    android:textSize="20sp" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/altitudeGraphButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/graph_icon"
+                android:layout_gravity="center_vertical" />
         </LinearLayout>
 
-        <!-- Caixa de Fumaça -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/box_background"
+            android:elevation="4dp"
+            android:orientation="horizontal"
             android:padding="16dp">
 
-            <!-- Título centralizado -->
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_smoke" />
+
             <TextView
-                android:id="@+id/smokeTitle"
-                android:layout_width="match_parent"
+                android:id="@+id/smokeValue"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Fumaça"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="Fumaça: --"
+                android:textSize="20sp" />
 
-            <LinearLayout
-                android:id="@+id/smokeBox"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/smokeGraphButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/graph_icon" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/box_background"
+            android:elevation="4dp"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_high_sound" />
+
+            <TextView
+                android:id="@+id/highSoundValue"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/box_background"
-                android:padding="16dp"
-                android:layout_marginBottom="8dp"
-                android:elevation="4dp">
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="Som Alto: --"
+                android:textSize="20sp" />
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_smoke"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="16dp" />
-
-                <TextView
-                    android:id="@+id/smokeValue"
-                    android:layout_width="265dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="--.-ppm"
-                    android:textSize="20sp" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/highSoundGraphButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/graph_icon" />
         </LinearLayout>
 
     </LinearLayout>

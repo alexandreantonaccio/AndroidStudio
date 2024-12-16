@@ -49,7 +49,7 @@ public abstract class BaseChartActivity extends AppCompatActivity {
     }
 
     protected String getApiUrl() {
-        return "http://kris-pc.local:8000/weather?limit=100"; // Replace with actual API URL
+        return "http://172.20.10.2:8000/weather?limit=100"; // Replace with actual API URL
     }
 
     protected abstract String getChartDescription();

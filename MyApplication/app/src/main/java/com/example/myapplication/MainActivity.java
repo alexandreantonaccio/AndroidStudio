@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,6 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
     private TextView statusTextView;
-    private LinearLayout temperatureBox, humidityBox, pressureBox, altitudeBox, lightBox, smokeBox;
 
     private final Handler handler = new Handler();
     private final int UPDATE_INTERVAL = 5000; // Update every 5 seconds
@@ -31,45 +31,59 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialize views
         statusTextView = findViewById(R.id.statusTextView);
 
-        // Initialize speedometers
-        temperatureBox = findViewById(R.id.temperatureBox);
-        humidityBox = findViewById(R.id.humidityBox);
-        pressureBox = findViewById(R.id.pressureBox);
-        altitudeBox = findViewById(R.id.altitudeBox);
-        lightBox = findViewById(R.id.lightBox);
-        smokeBox = findViewById(R.id.smokeBox);
+        // Sensor boxes and buttons
+        Button temperatureGraphButton = findViewById(R.id.temperatureGraphButton);
+
+        Button humidityGraphButton = findViewById(R.id.humidityGraphButton);
+
+        Button pressureGraphButton = findViewById(R.id.pressureGraphButton);
+
+        Button altitudeGraphButton = findViewById(R.id.altitudeGraphButton);
+
+        Button lightGraphButton = findViewById(R.id.lightGraphButton);
+
+        Button smokeGraphButton = findViewById(R.id.smokeGraphButton);
+
+        Button highSoundGraphButton = findViewById(R.id.highSoundGraphButton);
+
+        // Set click listeners for graph buttons
+        temperatureGraphButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, TemperatureChartActivity.class);
+            startActivity(intent);
+        });
+        humidityGraphButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, HumidityChartActivity.class);
+            startActivity(intent);
+        });
+        pressureGraphButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, PressureChartActivity.class);
+            startActivity(intent);
+        });
+        altitudeGraphButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AltitudeChartActivity.class);
+            startActivity(intent);
+        });
+        lightGraphButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, LightChartActivity.class);
+            startActivity(intent);
+        });
+        smokeGraphButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SmokeChartActivity.class);
+            startActivity(intent);
+        });
+
+        highSoundGraphButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, HighSoundChartActivity.class);
+            startActivity(intent);
+        });
 
         // Start automatic updates
         startUpdating();
-
-        // Set click listeners for speedometers to open respective chart activities
-        temperatureBox.setOnClickListener(v -> {
-            Intent intent1 = new Intent(MainActivity.this, TemperatureChartActivity.class);
-            startActivity(intent1);
-        });
-        humidityBox.setOnClickListener(v -> {
-            Intent intent2 = new Intent(MainActivity.this, HumidityChartActivity.class);
-            startActivity(intent2);
-        });
-        pressureBox.setOnClickListener(v -> {
-            Intent intent3 = new Intent(MainActivity.this, PressureChartActivity.class);
-            startActivity(intent3);
-        });
-        altitudeBox.setOnClickListener(v -> {
-            Intent intent4 = new Intent(MainActivity.this, AltitudeChartActivity.class);
-            startActivity(intent4);
-        });
-        lightBox.setOnClickListener(v -> {
-            Intent intent5 = new Intent(MainActivity.this, LightChartActivity.class);
-            startActivity(intent5);
-        });
-        smokeBox.setOnClickListener(v -> {
-            Intent intent6 = new Intent(MainActivity.this, SmokeChartActivity.class);
-            startActivity(intent6);
-        });
     }
+
 
     private void startUpdating() {
         handler.postDelayed(new Runnable() {
@@ -83,9 +97,11 @@ public class MainActivity extends AppCompatActivity {
 
     private class FetchLatestReadingsTask extends AsyncTask<Void, Void, String> {
 
-        private static final String API_URL = "http://kris-pc:8000/weather?limit=1";
+        private static final String API_URL = "http://172.20.10.2:8000/weather?limit=1";
 
         private float temperature, humidity, pressure, altitude, light, smoke;
+
+        private String highSound;
 
         @Override
         protected String doInBackground(Void... voids) {
@@ -118,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 altitude = (float) firstObject.getDouble("altitude");
                 light = (float) firstObject.getDouble("light");
                 smoke = (float) firstObject.getDouble("smoke");
+                highSound = firstObject.getBoolean("high_sound") ? "Sim" : "Não" ;
 
                 return "Successful connection!";
 
@@ -131,12 +148,13 @@ public class MainActivity extends AppCompatActivity {
             statusTextView.setText("Status: " + result);
             if (result.equals("Successful connection!")) {
                 // Update speedometer values
-                ((TextView) temperatureBox.findViewById(R.id.temperatureValue)).setText(String.format("Temperature: %.2f°C", temperature));
-                ((TextView) humidityBox.findViewById(R.id.humidityValue)).setText(String.format("Humidity: %.2f%%", humidity));
-                ((TextView) pressureBox.findViewById(R.id.pressureValue)).setText(String.format("Pressure: %.2fhPa", pressure));
-                ((TextView) altitudeBox.findViewById(R.id.altitudeValue)).setText(String.format("Altitude: %.2fm", altitude));
-                ((TextView) lightBox.findViewById(R.id.lightValue)).setText(String.format("Light: %.2flux", light));
-                ((TextView) smokeBox.findViewById(R.id.smokeValue)).setText(String.format("Smoke: %.2fppm", smoke));
+                ((TextView) findViewById(R.id.temperatureValue)).setText(String.format("Temperatura: %.2f°C", temperature));
+                ((TextView) findViewById(R.id.humidityValue)).setText(String.format("Umidade: %.2f%%", humidity));
+                ((TextView) findViewById(R.id.pressureValue)).setText(String.format("Pressão: %.2fhPa", pressure));
+                ((TextView) findViewById(R.id.altitudeValue)).setText(String.format("Altitude: %.2fm", altitude));
+                ((TextView) findViewById(R.id.lightValue)).setText(String.format("Luminosidade: %.2flux", light));
+                ((TextView) findViewById(R.id.smokeValue)).setText(String.format("Fumaça: %.2fppm", smoke));
+                ((TextView) findViewById(R.id.highSoundValue)).setText(String.format("Som Alto: %s", highSound));
             }
         }
     }
