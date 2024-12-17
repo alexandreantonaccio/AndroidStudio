@@ -30,6 +30,7 @@
 
         <!-- Caixa de Temperatura -->
         <LinearLayout
+            android:id="@+id/temperatureBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -65,6 +66,7 @@
         <!-- Repeat similar structure for other sensors (humidity, pressure, altitude, light, smoke) -->
 
         <LinearLayout
+            android:id="@+id/humidityBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -98,6 +100,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/pressureBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -131,6 +134,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lightBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -164,6 +168,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/altitudeBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -197,6 +202,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/smokeBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -230,6 +236,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/highSoundBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
